@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DashComponent } from './Modules/Components/ws-core-view/dash/dash.component';
-import { EditorComponent } from './Modules/Components/ws-core-view/editor/editor.component';
-import { HomeComponent } from './Modules/Components/ws-core-view/home/home.component';
-import { ProfileComponent } from './Modules/Components/ws-core-view/profile/profile.component';
-import { SettingsComponent } from './Modules/Components/ws-core-view/settings/settings.component';
-import { TeamsComponent } from './Modules/Components/ws-core-view/teams/teams.component';
-import { PageNotFoundComponent } from './Modules/Components/page-not-found/page-not-found.component';
-import { LoginComponent } from './Modules/Components/login/login.component';
+import { DashComponent } from './Ws-Core/Modules/Components/ws-core-view/dash/dash.component';
+import { EditorComponent } from './Ws-Core/Modules/Components/ws-core-view/editor/editor.component';
+import { HomeComponent } from './Ws-Core/Modules/Components/ws-core-view/home/home.component';
+import { ProfileComponent } from './Ws-Core/Modules/Components/ws-core-view/profile/profile.component';
+import { SettingsComponent } from './Ws-Core/Modules/Components/ws-core-view/settings/settings.component';
+import { TeamsComponent } from './Ws-Core/Modules/Components/ws-core-view/teams/teams.component';
+import { PageNotFoundComponent } from './Ws-Core/Modules/Components/page-not-found/page-not-found.component';
+import { LoginComponent } from './Ws-Core/Modules/Components/login/login.component';
 
 
 const Path = "ws/"
@@ -55,9 +55,9 @@ const routes: Routes = [
     component: TeamsComponent,
     data: {title: 'Teams'}},
 
-  {
+  /*{
     path: '**', component: PageNotFoundComponent
-  }
+  }*/
 ];
 
 @NgModule({
