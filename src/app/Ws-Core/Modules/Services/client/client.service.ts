@@ -8,15 +8,14 @@ import * as MicrosoftGraphClient from "@microsoft/microsoft-graph-client/lib/src
 import { Injectable} from '@angular/core';
 import { Observable, from, } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpService } from './http.service';
-import { HttpClient, HttpHeaders, JsonpClientBackend, HttpParams } from '@angular/common/http';
+import { HttpService } from '../Http/http.service';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import * as hello from 'hellojs/dist/hello.all.js';
-import { ResponseContentType } from '@angular/http';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Injectable()
-export class HomeService {
+export class ClientService {
   url = 'https://graph.microsoft.com/';
   file = 'demo.xlsx';
   table = 'Table1';

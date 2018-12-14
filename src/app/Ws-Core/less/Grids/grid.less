@@ -1,0 +1,13 @@
+.nav-grid {
+    display: grid;
+    grid-template-columns: 48px auto;
+    height: 100%;
+    &.column {  
+        grid-column-start: 1;
+        grid-row-end: 1;
+        
+    }
+    .column:nth-child(2) {
+        box-sizing: border-box;
+    }
+}

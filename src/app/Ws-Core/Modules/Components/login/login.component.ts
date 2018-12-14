@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AuthService } from '../../Services/Auth/auth.service';
+// Services
+import { LoginService } from '../../Services/Auth/login.service'
 
 
 @Component({
@@ -11,11 +12,11 @@ import { AuthService } from '../../Services/Auth/auth.service';
 export class LoginComponent implements OnInit {
 
   constructor(
-    private authService: AuthService,
+    private loginService: LoginService,
   ) {}
 
   onLogin() {
-    this.authService.login();
+    this.loginService.login();
   }
   ngOnInit(){
     

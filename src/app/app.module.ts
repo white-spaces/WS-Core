@@ -2,7 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { HttpClientModule, HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
 // Components
@@ -19,8 +19,15 @@ import { LoginComponent } from './Ws-Core/Modules/Components/login/login.compone
 
 // Services
 import { AuthService } from './Ws-Core/Modules/Services/Auth/auth.service';
-import { HttpService } from './Ws-Core/Modules/Services/http.service';
-import { HomeService } from './Ws-Core/Modules/Services/home.service';
+import { HttpService } from './Ws-Core/Modules/Services/Http/http.service';
+import { ClientService } from './Ws-Core/Modules/Services/client/client.service';
+import { LoginService } from './Ws-Core/Modules/Services/Auth/login.service';
+import { LogoutService } from './Ws-Core/Modules/Services/Auth/logout.service';
+
+import { TitleService } from './Ws-Core/Modules/Services/Title/title.service'
+
+// Auth Guard
+import {LoginGuard } from './Ws-Core/Modules/Services/Guard/login.guard';
 
 
 
@@ -47,8 +54,16 @@ import { HomeService } from './Ws-Core/Modules/Services/home.service';
   providers: [
     AuthService,
     HttpService,
-    HomeService,
+    ClientService,
+    LoginService,
+    LogoutService,
+    LoginGuard,
+    TitleService
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor(titleService: TitleService) {
+    titleService.init();
+  }
+}

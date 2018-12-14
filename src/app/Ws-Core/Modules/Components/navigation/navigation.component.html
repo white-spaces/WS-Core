@@ -1,3 +1,14 @@
-<p>
-  navigation works!
-</p>
+<nav class="transition-300" [ngClass]="{'nav_expanded': navClick}" >
+  <div class="expand_menu">
+    <div class="icon_menu btn contain transition" (click)="navOnClick()">
+
+    </div>
+  </div>
+  <ul >
+    <li *ngFor="let nav of navList" class="__li-expanded transition">
+      <div class="icon btn contain transition" [ngStyle]="{'background-image': 'url('+nav.imageUrl+')'}" title="{{nav.name}}" [routerLink]="nav.url">
+        <div class="__expand transition-delay-300">{{nav.name}}</div>
+      </div>
+    </li>
+  </ul>
+</nav>

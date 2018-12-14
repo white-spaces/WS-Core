@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Navigation } from './nav-icon-list';
 
 @Component({
   selector: 'app-navigation',
@@ -6,6 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navigation.component.less']
 })
 export class NavigationComponent implements OnInit {
+
+  navList = Navigation;
+
+  navClick = false;
+
+  navOnClick(){
+    if (this.navClick == false){
+      this.navClick = true;
+    } else {
+      this.navClick = false;
+    }
+  };
 
   constructor() { }
 
