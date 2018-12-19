@@ -3,3 +3,9 @@ export class Nav {
     url: String;
     imageUrl: String
 }
+
+export class SubNav {
+    name: String;
+    url: String;
+    imageUrl: String;
+}

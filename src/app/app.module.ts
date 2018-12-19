@@ -23,11 +23,16 @@ import { HttpService } from './Ws-Core/Modules/Services/Http/http.service';
 import { ClientService } from './Ws-Core/Modules/Services/client/client.service';
 import { LoginService } from './Ws-Core/Modules/Services/Auth/login.service';
 import { LogoutService } from './Ws-Core/Modules/Services/Auth/logout.service';
-
-import { TitleService } from './Ws-Core/Modules/Services/Title/title.service'
+import { TitleService } from './Ws-Core/Modules/Services/Title/title.service';
+import { WeatherService } from './Ws-Core/Modules/Services/Weather/weather.service';
 
 // Auth Guard
 import {LoginGuard } from './Ws-Core/Modules/Services/Guard/login.guard';
+import { OverviewComponent } from './Ws-Core/Modules/Components/ws-core-view/home/overview/overview.component';
+import { WeatherComponent } from './Ws-Core/Modules/Components/ws-core-view/home/weather/weather.component';
+import { QuickNotesComponent } from './Ws-Core/Modules/Components/ws-core-view/home/quick-notes/quick-notes.component';
+import { ShortcutsComponent } from './Ws-Core/Modules/Components/ws-core-view/home/shortcuts/shortcuts.component';
+import { CalendarComponent } from './Ws-Core/Modules/Components/ws-core-view/home/calendar/calendar.component';
 
 
 
@@ -43,7 +48,12 @@ import {LoginGuard } from './Ws-Core/Modules/Services/Guard/login.guard';
     TeamsComponent,
     ProfileComponent,
     PageNotFoundComponent,
-    LoginComponent
+    LoginComponent,
+    OverviewComponent,
+    WeatherComponent,
+    QuickNotesComponent,
+    ShortcutsComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +68,8 @@ import {LoginGuard } from './Ws-Core/Modules/Services/Guard/login.guard';
     LoginService,
     LogoutService,
     LoginGuard,
-    TitleService
+    TitleService,
+    WeatherService
   ],
   bootstrap: [AppComponent]
 })

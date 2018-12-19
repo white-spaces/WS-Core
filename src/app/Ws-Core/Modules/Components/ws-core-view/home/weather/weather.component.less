@@ -1,0 +1,32 @@
+@import "../../../../../less/Variables/variables.less";
+.weather {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding: 3.6rem;
+    background: @FeatureBg;
+    .grid {
+        grid-template-columns: 100%;
+        text-align: center;
+        .__icon {
+            height: 120px;
+            width: 100%;
+            background-size: contain!important;
+            background-repeat: no-repeat;
+        }
+        .__header {
+            font-size: 2.4rem;
+            text-transform: capitalize;
+        }
+        .__underline {
+            width: 60%;
+            margin: 0 auto;
+            height: 2px;
+            background: white;
+            position: relative;
+        }
+        .__temp {
+            font-size: 2rem;
+        }
+    }
+}

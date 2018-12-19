@@ -2,10 +2,30 @@
   <div class="column">
       <app-navigation></app-navigation>
   </div>
-  <div class="column">
-      <button (click)="onLogout()">
-          Logout
-        </button>
+  <div class="column column-content">
+   <div class="grid home-grid">
+
+       <div class="overview-grid gutter">
+            <app-overview></app-overview>
+       </div>
+
+        <div class="weather-grid gutter">
+            <app-weather></app-weather>
+        </div>
+
+        <div class="quick-notes-grid gutter">
+            <app-quick-notes></app-quick-notes>
+        </div>
+
+        <div class="shortcuts-grid gutter">
+            <app-shortcuts></app-shortcuts>
+       </div>
+
+        <div class="calendar-grid gutter">
+            <app-calendar></app-calendar>
+        </div>
+        
+   </div>
   </div>
 </div>
 

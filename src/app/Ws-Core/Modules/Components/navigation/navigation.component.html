@@ -1,14 +1,43 @@
-<nav class="transition-300" [ngClass]="{'nav_expanded': navClick}" >
-  <div class="expand_menu">
-    <div class="icon_menu btn contain transition" (click)="navOnClick()">
+<nav class="" [ngClass]="{'nav_expanded': navClick}" >
+  <div class="expand_menu  transition-nav">
+    <div class="icon_menu btn contain transition-nav" (click)="navOnClick()">
 
     </div>
   </div>
   <ul >
-    <li *ngFor="let nav of navList" class="__li-expanded transition">
-      <div class="icon btn contain transition" [ngStyle]="{'background-image': 'url('+nav.imageUrl+')'}" title="{{nav.name}}" [routerLink]="nav.url">
-        <div class="__expand transition-delay-300">{{nav.name}}</div>
+    <li *ngFor="let nav of navList transition-nav" class="__li-expanded">
+      <div class="icon btn contain transition-nav" [ngStyle]="{'background-image': 'url('+nav.imageUrl+')'}" title="{{nav.name}}" [routerLink]="nav.url">
+        <div class="__expand transition-nav">{{nav.name}}</div>
       </div>
     </li>
+    <li id="current_user_profile_image" >
+      <div class="__container">
+        <img [src]="image" alt="User Profile Image">
+
+      </div>
+    </li>
+    <div class="hover-area btn" (mouseenter)="navOnHover(true)" (mouseleave)="navOnHover(false)">
+        <div id="current_user_options" class="transition-300" [ngClass]="{'sub_nav_expanded': navHover, 'sub_nav_toggled': navClick}">
+            <ul class="sub-ul">
+              <li class=" __li-expanded" *ngFor="let subnav of subNavList transition">
+                
+                <!--If Logout, pass logout function-->
+                <div class="icon __sub btn contain transition-150" *ngIf="subnav.name === 'Logout'" (click)="onLogout()" [ngStyle]="{'background-image': 'url('+subnav.imageUrl+')'}" title="{{subnav.name}}">
+                  <div class="__expand transition-delay-300">{{subnav.name}}</div>
+                  
+                </div>
+
+                <!--If not Logout, pass routerLink with url-->
+                <div class="icon __sub btn contain transition-150" *ngIf="subnav.name !== 'Logout'" [ngStyle]="{'background-image': 'url('+subnav.imageUrl+')'}" title="{{subnav.name}}" [routerLink]="subnav.url">
+                    <div class="__expand transition-delay-300">{{subnav.name}}</div>
+                    
+                  </div>
+
+
+              </li>
+            </ul>
+          </div>
+    </div>
+    
   </ul>
 </nav>

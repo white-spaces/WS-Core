@@ -4,15 +4,32 @@ body {
     overflow: hidden;
     height: 100vh;
     box-sizing: border-box;
+    background: @BgColor;
 }
 
 ul {
     margin-block-end: 0px;
     margin-block-start: 0px;
+    list-style: none;
+    padding-left: 0;
 }
 
 .btn {
     cursor: pointer;
+}
+
+button {
+    width: 125px;
+    height: 40px;
+    border: none;
+    color: rgba(255,255,255,.8)!important;
+    background: @DarkColor;
+    border-radius: 2px;
+    &:hover {
+        background: #fff;
+        color: @DarkColor!important;
+        border: solid 2px @DarkColor;
+    }
 }
 
 .contain {
@@ -28,29 +45,70 @@ ul {
 }
 
 .transition {
-    -webkit-transition: all 150ms ease-in-out;
-    -moz-transition: all 150ms ease-in-out;
-    -o-transition: all 150ms ease-in-out;
-    transition: all 150ms ease-in-out;
+    -webkit-transition: all 150ms ease-in;
+    -moz-transition: all 150ms ease-in;
+    -o-transition: all 150ms ease-in;
+    transition: all 150ms ease-in;
 }
 
 .transition-delay-150 {
-    -webkit-transition: all 150ms ease-in-out 150ms;
-    -moz-transition: all 150ms ease-in-out 150ms;
-    -o-transition: all 150ms ease-in-out 150ms;
-    transition: all 150ms ease-in-out 150ms;
+    -webkit-transition: all 150ms ease-in 150ms;
+    -moz-transition: all 150ms ease-in 150ms;
+    -o-transition: all 150ms ease-in 150ms;
+    transition: all 150ms ease-in 150ms;
 }
 
 .transition-300 {
-    -webkit-transition: all 300ms ease-in-out;
-    -moz-transition: all 300ms ease-in-out;
-    -o-transition: all 300ms ease-in-out;
-    transition: all 300ms ease-in-out;
+    -webkit-transition: all 300ms ease-in;
+    -moz-transition: all 300ms ease-in;
+    -o-transition: all 300ms ease-in;
+    transition: all 300ms ease-in;
 }
 
 .transition-delay-300 {
-    -webkit-transition: all 300ms ease-in-out 300ms;
-    -moz-transition: all 300ms ease-in-out 300ms;
-    -o-transition: all 300ms ease-in-out 300ms;
-    transition: all 300ms ease-in-out 300ms;
+    -webkit-transition: all 300ms ease-in 300ms;
+    -moz-transition: all 300ms ease-in 300ms;
+    -o-transition: all 300ms ease-in 300ms;
+    transition: all 300ms ease-in 300ms;
+}
+
+.icon {
+    display: inline-block;
+    transition: all 0.4s ease-in!important; 
+    &:before {
+        content: "";
+        background-color: aliceblue;
+        border-radius: 50%;
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        transform: scale(0.001, 0.001);
+    }
+    &:focus {
+        outline: 0;
+        color: white;
+        &:before {
+            animation: effect_dylan 0.8s ease-out;
+        }
+    }
+}
+
+@keyframes effect_dylan {
+    50% {
+        transform: scale(1.5, 1.5);
+        opacity: 0;
+    }
+
+    99% {
+        transform: scale(0.001, 0.001);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(0.001, 0.001);
+        opacity: 1;
+    }
 }

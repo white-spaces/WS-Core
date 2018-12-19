@@ -46,7 +46,6 @@ export class ClientService {
     var client = this.getClient();
     return from(client
     .api('me')
-    .select("displayName, mail, userPrincipalName")
     .get()
     .then ((res => {
       return res;
@@ -58,31 +57,7 @@ export class ClientService {
     return this.sanitizer.bypassSecurityTrustUrl(html);
  }
  
- getProfileImage() {
-     let accessToken = this.httpService.getAccessToken;
-     // fetch User Profile Image
-     let headers: HttpHeaders = new HttpHeaders();
-     headers.set("Authorization", "d" + accessToken);
-     this.http
-       .get("https://graph.microsoft.com/beta/me/photo/$value", {
-         responseType: 'arraybuffer',
-         headers: headers
-       })
-       .pipe(map(res => res))
-       .subscribe(
-         (data: any) => {
-           let blob = new Blob([data.arrayBuffer()], {
-             type: data.headers.get("content-type")
-           });
-           let imageUrl = window.URL.createObjectURL(blob);
-           console.log(this.transform(imageUrl))
  
-           return this.transform(imageUrl)
-          }
-          );
-         
- }
-
 
   getPhoto(): Observable<any>{
     var client = this.getClient();
@@ -98,23 +73,9 @@ export class ClientService {
       })
     )
   }
-
-
-
-  private headers() {
-    const msft = hello('msft').getAuthResponse();
-    const accessToken = msft.access_token;
-    var token = this.httpService.getAccessToken();
-    console.log(token)
-    const headers =  new HttpHeaders();
-    return headers;
-  }
-  
-
-  
-  
     
-    
+
+
   getTeams(): Observable<MicrosoftGraph.User>{
    var client = this.getClient();
    return from(client
@@ -154,6 +115,19 @@ export class ClientService {
       return res;
     }))
   );
+  }
+
+  addMemberToGroup(group, id): Observable<MicrosoftGraph.Group>{
+    var client = this.getClient();
+    var url = "https://graph.microsoft.com/v1.0/" + id + "/members"
+    return from(client
+    .api(url)
+    .post(group)
+    .then((res => {
+      console.log(res);
+      return res;
+    }))
+  )
   }
 
   getGroups(): Observable<MicrosoftGraph.Group>{

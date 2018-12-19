@@ -1,0 +1,57 @@
+<div class="fill card overview">
+  <div class="__top cover">
+    <h2 class="white">
+      23:23
+    </h2>
+    
+  </div>
+  <div class="__bottom">
+    <div class="__container grid">
+      <div class="__left">
+        <div class="image-container grid">
+          <img [src]="image" alt="">
+          <span>
+            <h3>
+              {{home.me.displayName}}
+            </h3>
+            <p class="__under" *ngIf="home.me.jobTitle">
+              {{home.me.jobTitle}}
+            </p>
+            <p class="__under" *ngIf="!home.me.jobTitle">
+              -
+            </p>
+          </span> 
+        </div>
+        
+       
+        <div class="grid __actions">
+          <div class="__action">
+            <div class="edit contain icon btn transition" title="Edit Profile">
+
+            </div>
+          </div>
+
+          <div class="__action">
+            <div class="settings contain icon btn transition" title="Profile Settings">
+
+            </div>
+          </div>
+
+          <div class="__action">
+            <div class="details contain icon btn transition" title="View Details">
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="__right">
+        <h2>126</h2>
+        <p>Page views today</p>
+        <button class="btn transition-300">
+          View Analytics
+        </button>
+      </div>    
+    </div>
+  </div>
+</div>
