@@ -33,10 +33,16 @@ export class QuickNotesComponent implements OnInit {
   defaultGroupDescription = "I'm your White Spaces Group, I contain all your default Planner and Team componets for your Cms. If desired you can create a new plan in Planner or team in Teams and assign that given team to your White Spaces.";
   defaultMailEnabled = true;
   defaultDisplayname = "White Spaces"
-  defaultMailNickname = "green";
+  defaultMailNickname = "testingagain";
   defaultSecurityEnabled = false;
   defaultOwners;
   defaultMembers;
+
+
+  // Default Planner
+  subsCreatePlan: Subscription;
+
+  defaultPlannerTitle = 'WhiteSpacesDefaultPlan'
 
 
 
@@ -59,7 +65,7 @@ export class QuickNotesComponent implements OnInit {
             // Loop through group objects
             this.groups.value.forEach(group => {
               // if Default WS group already exists, get group
-                if(group.mailNickname === "green"){
+                if(group.mailNickname === "testingagain"){
                   this.getCmsGroup(group.id)
                 } else {
                   // otherwise we create a new Default ws group
@@ -97,6 +103,21 @@ export class QuickNotesComponent implements OnInit {
 
     this.subsCreateGroup = this.clientService.createGroup(newGroup).subscribe(data => {
       this.zone.run(() => {
+        this.createCmsPlan(data.id);
+      })
+    })
+  }
+
+  createCmsPlan(groupId){
+    let newPlan = {
+      owner: groupId,
+      title: this.defaultPlannerTitle
+    }
+
+    this.subsCreatePlan = this.clientService.createPlan(newPlan).subscribe(data => {
+      this.zone.run(() => {
+        console.log(data)
+        alert('function ran')
       })
     })
   }

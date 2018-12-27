@@ -152,6 +152,26 @@ export class ClientService {
   );
   }
 
+  // PLANNER CRUD THROUGH MICROSOFT GRAP API
+  // ______________________________________
+  // ______________________________________
+  // ______________________________________
+  // ______________________________________
+
+  createPlan(plan): Observable<MicrosoftGraph.PlannerPlan>{
+    var client = this.getClient();
+    return from(client
+    .api('https://graph.microsoft.com/v1.0/planner/plans')
+    .post(plan)
+    .then((res => {
+      console.log(res)
+      return res;
+    }))
+  );
+  }
+
+
+
 
   addCustomProfile(RoamingProfile: MicrosoftGraph.OpenTypeExtension) {
     var client  = this.getClient();
