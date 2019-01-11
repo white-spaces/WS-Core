@@ -2,8 +2,15 @@ import * as MicrosoftGraph from "@microsoft/microsoft-graph-types";
 import { Component, OnInit, NgZone } from '@angular/core';
 import { ClientService } from '../../../../Services/client/client.service';
 import { Subscription } from 'rxjs';
-import { GroupService } from '../../../../Services/group/group.service';
-import { oDataQueryNames } from "../../../../../../../../node_modules/@microsoft/microsoft-graph-client/lib/src";
+
+// Planner service 
+import { PlannerPlanService } from '../../../../Services/client/plannerPlan.service';
+import { PlannerBucketService } from '../../../../Services/client/plannerBucket.service';
+import { PlannerLogicService } from '../../../../LogicServices/PlannerLogic/planner-logic.service';
+
+// Group service
+import { GroupService } from '../../../../Services/client/group.service';
+import { GroupLogicService } from '../../../../LogicServices/GroupLogic/groupLogic.service';
 
 
 
@@ -14,6 +21,8 @@ import { oDataQueryNames } from "../../../../../../../../node_modules/@microsoft
 })
 export class QuickNotesComponent implements OnInit {
   me: MicrosoftGraph.User;
+  plan: MicrosoftGraph.PlannerPlan;
+  planBucket: MicrosoftGraph.PlannerBucket;
   subsGetMe: Subscription;
 
   // Check if WS Group Exits
@@ -24,103 +33,115 @@ export class QuickNotesComponent implements OnInit {
   subsGetUserCmsGroup: Subscription;
   userCmsGroup: any;
 
-  // Default new group settings
-  subsCreateGroup: Subscription;
+  // Get Plans
+  subsGetPlan: Subscription;
+  subsGetSpecificPlan: Subscription;
+  subsGetPlanBuckets: Subscription;
+  buckets: any;
 
-  // Default add member
-  subsAddMember: Subscription;
-
-  defaultGroupDescription = "I'm your White Spaces Group, I contain all your default Planner and Team componets for your Cms. If desired you can create a new plan in Planner or team in Teams and assign that given team to your White Spaces.";
-  defaultMailEnabled = true;
-  defaultDisplayname = "White Spaces"
-  defaultMailNickname = "testingagain";
-  defaultSecurityEnabled = false;
-  defaultOwners;
-  defaultMembers;
-
-
-  // Default Planner
-  subsCreatePlan: Subscription;
-
-  defaultPlannerTitle = 'WhiteSpacesDefaultPlan'
+  // Get Buckets
+  subsGetBucketList: Subscription;
 
 
 
   defaultMember;
   defaultId;
 
+  defaultMailNickname = 'schengen';
+
   constructor(
     private clientService: ClientService,
     private zone: NgZone,
-    public groupService: GroupService
+
+    // Group Services
+    public groupService: GroupService,
+    private groupLogicService: GroupLogicService,
+
+    // Planner Services
+    private plannerService: PlannerPlanService,
+    private plannerLogicService: PlannerLogicService,
+
+    // Planner Bucket
+    private plannerBucketService: PlannerBucketService,
   ) { }
 
   ngOnInit() {
-    // Get user information
-    this.subsGetMe = this.clientService.getMe().subscribe(me => {this.me = me;
-      this.zone.run(() => {
-        // Get groups associated with client
-        this.subsGetGroups = this.clientService.getGroups().subscribe(groupAssociatedWith => {this.groups = groupAssociatedWith;
-          this.zone.run(() => {
-            // Loop through group objects
-            this.groups.value.forEach(group => {
-              // if Default WS group already exists, get group
-                if(group.mailNickname === "testingagain"){
-                  this.getCmsGroup(group.id)
+      this.subsGetMe = this.clientService.getMe().subscribe(me => {this.me = me;
+        this.zone.run(()=> {
+          this.subsGetGroups = this.groupService.getGroups().subscribe(groupAssociatedWith => {this.groups = groupAssociatedWith;
+            this.zone.run(() => {
+              this.groups.value.forEach(group => {
+                if (group.mailNickname == this.defaultMailNickname){
+                  this.getCmsGroup(group.id);
+                  this.getPlans(group.id);
+
                 } else {
-                  // otherwise we create a new Default ws group
-                  this.createCmsGroup(me.id);
+                  this.groupLogicService.checkGroups(this.defaultMailNickname);
                 }
-            });
+              });
+            })
           })
         })
       })
-    })    
+
   }
+
+
 
   // Get WS group by id
   getCmsGroup(id){
-    this.subsGetUserCmsGroup = this.clientService.getGroupById(id).subscribe(cmsGroup => {this.userCmsGroup = cmsGroup;
+    this.subsGetUserCmsGroup = this.groupService.getGroupById(id).subscribe(cmsGroup => {this.userCmsGroup = cmsGroup;
       this.zone.run(() => {
       })
     })
   }
 
-  // Create group, id is there to add signed in user automatically to members object of group.
-  createCmsGroup(id){
-    let newGroup = {
-      description: this.defaultGroupDescription,
-      displayName: this.defaultDisplayname,
-      groupTypes: [
-        "unified"
-      ],
-      mailEnabled: this.defaultMailEnabled,
-      securityEnabled: this.defaultSecurityEnabled,
-      mailNickname: this.defaultMailNickname,
-      owners: this.defaultOwners,
-      "members@odata.bind": ["https://graph.microsoft.com/v1.0/users/" + id]
-    }
-
-    this.subsCreateGroup = this.clientService.createGroup(newGroup).subscribe(data => {
+  plannervar;
+  // Get planner
+  getPlans(groupId){
+    this.subsGetPlan = this.plannerService.getPlan(groupId).subscribe(data => {this.plannervar = data; {
       this.zone.run(() => {
-        this.createCmsPlan(data.id);
+        this.plannervar.value.forEach(planner => {
+          if(planner.title == this.plannerLogicService.defaultPlannerTitle) {
+            this.getSpecificPlan(planner.id);
+          } else {
+
+            this.plannerLogicService.createCmsPlan(groupId);
+          }
+        });
+      })
+      }
+    })
+  }
+
+
+  getSpecificPlan(planId){
+    this.subsGetSpecificPlan = this.plannerService.getPlanById(planId).subscribe(plan => {
+      this.zone.run(() => {
+        this.plan = plan;
+
+        this.getPlanBuckets(this.plan.id);
       })
     })
   }
 
-  createCmsPlan(groupId){
-    let newPlan = {
-      owner: groupId,
-      title: this.defaultPlannerTitle
-    }
-
-    this.subsCreatePlan = this.clientService.createPlan(newPlan).subscribe(data => {
+  getPlanBuckets(planId){
+    this.subsGetPlanBuckets = this.plannerService.getPlanBuckets(planId).subscribe(plan => {
       this.zone.run(() => {
-        console.log(data)
-        alert('function ran')
+        this.buckets = plan;
       })
     })
   }
+
+  getBucketList(id){
+    this.subsGetBucketList = this.plannerBucketService.GetListBucket(id).subscribe(plan => {
+      this.zone.run(() => {
+        this.planBucket = plan;
+      })
+    })
+  }
+
+  
 
 
 }

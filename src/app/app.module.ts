@@ -21,10 +21,16 @@ import { LoginComponent } from './Ws-Core/Modules/Components/login/login.compone
 import { AuthService } from './Ws-Core/Modules/Services/Auth/auth.service';
 import { HttpService } from './Ws-Core/Modules/Services/Http/http.service';
 import { ClientService } from './Ws-Core/Modules/Services/client/client.service';
+import { PlannerPlanService } from './Ws-Core/Modules/Services/client/plannerPlan.service';
+import { PlannerBucketService } from './Ws-Core/Modules/Services/client/plannerBucket.service';
+import { GroupService } from './Ws-Core/Modules/Services/client/group.service';
 import { LoginService } from './Ws-Core/Modules/Services/Auth/login.service';
 import { LogoutService } from './Ws-Core/Modules/Services/Auth/logout.service';
 import { TitleService } from './Ws-Core/Modules/Services/Title/title.service';
 import { WeatherService } from './Ws-Core/Modules/Services/Weather/weather.service';
+
+// Logic Services 
+import { GroupLogicService } from './Ws-Core/Modules/LogicServices/GroupLogic/groupLogic.service';
 
 // Auth Guard
 import {LoginGuard } from './Ws-Core/Modules/Services/Guard/login.guard';
@@ -69,7 +75,11 @@ import { CalendarComponent } from './Ws-Core/Modules/Components/ws-core-view/hom
     LogoutService,
     LoginGuard,
     TitleService,
-    WeatherService
+    WeatherService,
+    PlannerPlanService,
+    PlannerBucketService,
+    GroupService,
+    GroupLogicService
   ],
   bootstrap: [AppComponent]
 })

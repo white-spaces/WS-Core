@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GroupService } from './group.service';
+import { PlannerLogicService } from './planner-logic.service';
 
-describe('GroupService', () => {
+describe('PlannerLogicService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: GroupService = TestBed.get(GroupService);
+    const service: PlannerLogicService = TestBed.get(PlannerLogicService);
     expect(service).toBeTruthy();
   });
 });

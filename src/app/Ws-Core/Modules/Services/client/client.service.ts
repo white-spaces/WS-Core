@@ -7,10 +7,8 @@ import * as MicrosoftGraph from "@microsoft/microsoft-graph-types"
 import * as MicrosoftGraphClient from "@microsoft/microsoft-graph-client/lib/src"
 import { Injectable} from '@angular/core';
 import { Observable, from, } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { HttpService } from '../Http/http.service';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
-import * as hello from 'hellojs/dist/hello.all.js';
+import { HttpClient} from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 
 
@@ -99,80 +97,9 @@ export class ClientService {
   }
 
 
-  // GROUPS CRUD THROUGH MICROSOFT GRAP API
-  // ______________________________________
-  // ______________________________________
-  // ______________________________________
-  // ______________________________________
+  
 
-  createGroup(group): Observable<MicrosoftGraph.Group>{
-    var client = this.getClient();
-    return from(client
-    .api('groups')
-    .post(group)
-    .then((res => {
-      console.log(res)
-      return res;
-    }))
-  );
-  }
-
-  addMemberToGroup(group, id): Observable<MicrosoftGraph.Group>{
-    var client = this.getClient();
-    var url = "https://graph.microsoft.com/v1.0/" + id + "/members"
-    return from(client
-    .api(url)
-    .post(group)
-    .then((res => {
-      console.log(res);
-      return res;
-    }))
-  )
-  }
-
-  getGroups(): Observable<MicrosoftGraph.Group>{
-    var client = this.getClient();
-    return from(client
-    .api('https://graph.microsoft.com/v1.0/groups')
-    .get()
-    .then((res => {
-      return res
-    }))
-  );
-  }
-
-  getGroupById(id): Observable<MicrosoftGraph.Group>{
-    var client = this.getClient();
-    return from(client
-    .api('https://graph.microsoft.com/v1.0/groups/' + id)
-    .get()
-    .then((res => {
-      return res
-    }))
-  );
-  }
-
-  // PLANNER CRUD THROUGH MICROSOFT GRAP API
-  // ______________________________________
-  // ______________________________________
-  // ______________________________________
-  // ______________________________________
-
-  createPlan(plan): Observable<MicrosoftGraph.PlannerPlan>{
-    var client = this.getClient();
-    return from(client
-    .api('https://graph.microsoft.com/v1.0/planner/plans')
-    .post(plan)
-    .then((res => {
-      console.log(res)
-      return res;
-    }))
-  );
-  }
-
-
-
-
+  
   addCustomProfile(RoamingProfile: MicrosoftGraph.OpenTypeExtension) {
     var client  = this.getClient();
     return from(client

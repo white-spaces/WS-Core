@@ -5,6 +5,18 @@
 <div *ngIf="userCmsGroup">
   {{userCmsGroup.mailNickname}}
   {{userCmsGroup.id}}
+
+  <button (click)="createCmsPlan(userCmsGroup.id)">
+    Click me 
+  </button>
+
+  {{plan.title}}
+
+  {{plan.id}}
+
+  <div *ngFor="let bucket of buckets.value">
+    {{bucket.name}}
+  </div>
 </div>
 
 </div>
