@@ -45,9 +45,30 @@ export class PlannerTaskService {
     .api('https://graph.microsoft.com/v1.0/planner/tasks/' + id)
     .get()
     .then((res => {
-      return res
+      return res;
     }))
   );
+  }
+
+  getAllPlannerTasksForPlan(PlanId): Observable<MicrosoftGraph.PlannerTask>{
+    var client = this.client.getClient();
+    return from(client
+    .api('https://graph.microsoft.com/v1.0/planner/plans/' + PlanId + '/tasks')
+    .get()
+    .then((res => {
+      return res;
+    }))
+  );
+  }
+
+  getAllPlannerTasksForBucket(BucketId): Observable<MicrosoftGraph.PlannerBucket>{
+    var client = this.client.getClient();
+    return from(client
+    .api('https://graph.microsoft.com/v1.0/planner/buckets/' + BucketId + '/tasks')
+    .get()
+    .then((res) => {
+      return res;
+    }))
   }
 
   GetTasksForUser(){

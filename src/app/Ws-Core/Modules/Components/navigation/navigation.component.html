@@ -10,14 +10,8 @@
         <div class="__expand transition-nav">{{nav.name}}</div>
       </div>
     </li>
-    <li id="current_user_profile_image" >
-      <div class="__container">
-        <img [src]="image" alt="User Profile Image">
-
-      </div>
-    </li>
     <div class="hover-area btn" (mouseenter)="navOnHover(true)" (mouseleave)="navOnHover(false)">
-        <div id="current_user_options" class="transition-300" [ngClass]="{'sub_nav_expanded': navHover, 'sub_nav_toggled': navClick}">
+        <div id="current_user_options" [ngClass]="{'sub_nav_expanded': navHover, 'sub_nav_toggled': navClick}">
             <ul class="sub-ul">
               <li class=" __li-expanded" *ngFor="let subnav of subNavList transition">
                 

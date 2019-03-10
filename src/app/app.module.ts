@@ -23,6 +23,7 @@ import { HttpService } from './Ws-Core/Modules/Services/Http/http.service';
 import { ClientService } from './Ws-Core/Modules/Services/client/client.service';
 import { PlannerPlanService } from './Ws-Core/Modules/Services/client/plannerPlan.service';
 import { PlannerBucketService } from './Ws-Core/Modules/Services/client/plannerBucket.service';
+import { PlannerTaskService } from './Ws-Core/Modules/Services/client/plannerTask.service';
 import { GroupService } from './Ws-Core/Modules/Services/client/group.service';
 import { LoginService } from './Ws-Core/Modules/Services/Auth/login.service';
 import { LogoutService } from './Ws-Core/Modules/Services/Auth/logout.service';
@@ -34,11 +35,15 @@ import { GroupLogicService } from './Ws-Core/Modules/LogicServices/GroupLogic/gr
 
 // Auth Guard
 import {LoginGuard } from './Ws-Core/Modules/Services/Guard/login.guard';
+import { LoaderComponent } from './Ws-Core/Modules/Components/loader/loader.component';
+// Ws Core View Components
 import { OverviewComponent } from './Ws-Core/Modules/Components/ws-core-view/home/overview/overview.component';
 import { WeatherComponent } from './Ws-Core/Modules/Components/ws-core-view/home/weather/weather.component';
 import { QuickNotesComponent } from './Ws-Core/Modules/Components/ws-core-view/home/quick-notes/quick-notes.component';
 import { ShortcutsComponent } from './Ws-Core/Modules/Components/ws-core-view/home/shortcuts/shortcuts.component';
 import { CalendarComponent } from './Ws-Core/Modules/Components/ws-core-view/home/calendar/calendar.component';
+import { CoreViewComponent } from './Ws-Core/Modules/Components/ws-core-view/core-view/core-view.component';
+import { TopNavComponent } from './Ws-Core/Modules/Components/top-nav/top-nav.component';
 
 
 
@@ -59,7 +64,10 @@ import { CalendarComponent } from './Ws-Core/Modules/Components/ws-core-view/hom
     WeatherComponent,
     QuickNotesComponent,
     ShortcutsComponent,
-    CalendarComponent
+    CalendarComponent,
+    LoaderComponent,
+    CoreViewComponent,
+    TopNavComponent
   ],
   imports: [
     BrowserModule,
@@ -78,6 +86,7 @@ import { CalendarComponent } from './Ws-Core/Modules/Components/ws-core-view/hom
     WeatherService,
     PlannerPlanService,
     PlannerBucketService,
+    PlannerTaskService,
     GroupService,
     GroupLogicService
   ],

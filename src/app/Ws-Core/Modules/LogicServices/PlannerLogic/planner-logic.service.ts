@@ -5,8 +5,11 @@ import { Subscription } from 'rxjs';
 // Planner Plan service 
 import { PlannerPlanService } from '../../Services/client/plannerPlan.service';
 
-// Planner Bucket SErvice
+// Planner Bucket Service
 import { PlannerBucketService } from '../../Services/client/plannerBucket.service';
+
+// Planner Task Service
+import { PlannerTaskService } from '../../Services/client/plannerTask.service';
 
 
 @Injectable({
@@ -20,18 +23,24 @@ export class PlannerLogicService {
 
   subsGetSpecificPlan: Subscription;
 
-  defaultPlannerTitle = 'WhiteSpacesOriginal'
+  defaultPlannerTitle = 'tesgin2'
 
   subsCreateBucket: Subscription;
 
-
   subsGetBucket: Subscription;
+
+  subsCreateTask: Subscription;
+
+  subsGetTask: Subscription;
+
+  defaultFirstTask = 'Signup for White Spaces'
     
 
   constructor(
     private zone: NgZone,
     private plannerPlanService: PlannerPlanService,
-    private plannerBucketService: PlannerBucketService
+    private plannerBucketService: PlannerBucketService,
+    private plannerTaskService: PlannerTaskService
   ) { }
 
   createCmsPlan(groupId){
@@ -42,7 +51,8 @@ export class PlannerLogicService {
 
     this.subsCreatePlan = this.plannerPlanService.createPlan(newPlan).subscribe(data => {
       this.zone.run(() => {
-        this.createCmsBucket(data.id, 'Todo')
+        this.createCmsBucket(data.id, 'Todo');
+        this.createCmsBucket(data.id, 'Done')
       })
     })
 
@@ -57,8 +67,23 @@ export class PlannerLogicService {
 
     this.subsCreateBucket = this.plannerBucketService.createBucket(newBucket).subscribe(data => {
       this.zone.run(() => {
-      window.location.reload();
+        if(data.name == 'Done'){
+          this.createCmsTask(id, data.id, this.defaultFirstTask)
+        }
+      })
+    })
+  }
 
+  createCmsTask(planid, bucketid, taskTitle) {
+    let newTask = {
+      plandId: planid,
+      bucketId: bucketid,
+      title: taskTitle
+    }
+
+    this.subsCreateTask = this.plannerTaskService.createTask(newTask).subscribe(data => {
+      this.zone.run(() => {
+        window.location.reload();
       })
     })
   }

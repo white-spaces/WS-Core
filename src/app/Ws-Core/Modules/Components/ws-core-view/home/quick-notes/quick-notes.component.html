@@ -1,23 +1,42 @@
 <div class="fill card">
-  quick-notes works!
-
-
-<div *ngIf="userCmsGroup">
-  {{userCmsGroup.mailNickname}}
-  {{userCmsGroup.id}}
-
-  <button (click)="createCmsPlan(userCmsGroup.id)">
-    Click me 
-  </button>
-
-  {{plan.title}}
-
-  {{plan.id}}
-
-  <div *ngFor="let bucket of buckets.value">
-    {{bucket.name}}
+  <div *ngIf="loaded">
+    <div *ngIf="plannervar">
+    <select name="" id="">
+      <option *ngFor="let plan of plannervar.value" value="{{plan.title}}">{{plan.title}}</option>
+    </select>
   </div>
+
+  <div *ngIf="userCmsGroup">
+    {{userCmsGroup.mailNickname}}
+    {{userCmsGroup.id}}
+
+    <button (click)="createCmsPlan(userCmsGroup.id)">
+      Click me 
+    </button>
+
+    {{plan.title}}
+
+    {{plan.id}}
+    <div *ngIf="buckets">
+      <select name="" id="" >
+        <option *ngFor="let bucketOption of buckets.value" value="{{bucketOption.name}}">{{bucketOption.name}}</option>
+      </select>
+      <div *ngFor="let bucket of buckets.value">
+        {{bucket.id}}
+      </div>
+    </div>
+  
+    <div *ngIf="tasks">
+      <div *ngFor="let task of tasks.value">
+        {{task.title}}
+      </div>
+    </div>
+
+    </div>
+  </div>
+
+  <app-loader *ngIf="!loaded"></app-loader>
+  
 </div>
 
-</div>
 

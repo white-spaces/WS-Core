@@ -1,0 +1,39 @@
+@import "../../../less/Variables/variables.less";
+.loader {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: fade(#03384f, 80%);
+
+    .container {
+        position: absolute;
+        top: 45%;
+        left: 45%;
+        transform: translateY(-50%);
+        margin: 0 auto;
+        .circle {
+            width: 35px;
+            height: 35px;
+            border-radius: 360px;
+            border-bottom: transparent 6px solid;
+            border-top: white 6px solid;
+            border-left: white 6px solid;
+            border-right: white 6px solid;
+            animation: loader-animation 1000ms ease-in-out infinite forwards;
+        }
+    }
+}
+
+@keyframes loader-animation {
+    0%{
+        transform: rotate(0deg) scale(1, 1);
+    }
+
+    50% {
+        transform: rotate(180deg) scale(1.2, 1.2);
+    }
+
+    100% {
+        transform: rotate(360deg) scale(1,1);
+    }
+}

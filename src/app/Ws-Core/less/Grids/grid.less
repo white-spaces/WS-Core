@@ -1,7 +1,8 @@
 .nav-grid {
     display: grid;
-    grid-template-columns: 48px auto;
+    grid-template-columns: auto 1fr;
     height: 100%;
+    grid-template-rows: 100vh;
     &.column {  
         grid-column-start: 1;
         grid-row-end: 1;
@@ -10,4 +11,13 @@
     .column:nth-child(2) {
         box-sizing: border-box;
     }
+}
+
+.column-navigation {
+    grid-column-start: 1;
+    width: 225px;
+}
+
+.column-router-outlet {
+    box-sizing: border-box;
 }

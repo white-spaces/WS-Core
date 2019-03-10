@@ -6,11 +6,13 @@ import { Subscription } from 'rxjs';
 // Planner service 
 import { PlannerPlanService } from '../../../../Services/client/plannerPlan.service';
 import { PlannerBucketService } from '../../../../Services/client/plannerBucket.service';
+import { PlannerTaskService } from '../../../../Services/client/plannerTask.service';
 import { PlannerLogicService } from '../../../../LogicServices/PlannerLogic/planner-logic.service';
 
 // Group service
 import { GroupService } from '../../../../Services/client/group.service';
 import { GroupLogicService } from '../../../../LogicServices/GroupLogic/groupLogic.service';
+import { EMLINK } from "constants";
 
 
 
@@ -23,6 +25,7 @@ export class QuickNotesComponent implements OnInit {
   me: MicrosoftGraph.User;
   plan: MicrosoftGraph.PlannerPlan;
   planBucket: MicrosoftGraph.PlannerBucket;
+  planTasks: MicrosoftGraph.PlannerTask;
   subsGetMe: Subscription;
 
   // Check if WS Group Exits
@@ -38,16 +41,22 @@ export class QuickNotesComponent implements OnInit {
   subsGetSpecificPlan: Subscription;
   subsGetPlanBuckets: Subscription;
   buckets: any;
+  tasks: any;
 
   // Get Buckets
   subsGetBucketList: Subscription;
 
+  // Get Tasks
+  subsGetBucketTasks: Subscription;
+
+  loaded: boolean = false;
 
 
+  pickedBucket = 'Todo';
   defaultMember;
   defaultId;
 
-  defaultMailNickname = 'schengen';
+  defaultMailNickname = 'Gorganzola';
 
   constructor(
     private clientService: ClientService,
@@ -63,6 +72,9 @@ export class QuickNotesComponent implements OnInit {
 
     // Planner Bucket
     private plannerBucketService: PlannerBucketService,
+
+    // Planner Tasks
+    private plannerTaskService: PlannerTaskService
   ) { }
 
   ngOnInit() {
@@ -100,7 +112,7 @@ export class QuickNotesComponent implements OnInit {
   // Get planner
   getPlans(groupId){
     this.subsGetPlan = this.plannerService.getPlan(groupId).subscribe(data => {this.plannervar = data; {
-      this.zone.run(() => {
+      this.zone.runOutsideAngular(() => {
         this.plannervar.value.forEach(planner => {
           if(planner.title == this.plannerLogicService.defaultPlannerTitle) {
             this.getSpecificPlan(planner.id);
@@ -117,7 +129,7 @@ export class QuickNotesComponent implements OnInit {
 
   getSpecificPlan(planId){
     this.subsGetSpecificPlan = this.plannerService.getPlanById(planId).subscribe(plan => {
-      this.zone.run(() => {
+      this.zone.runOutsideAngular(() => {
         this.plan = plan;
 
         this.getPlanBuckets(this.plan.id);
@@ -126,17 +138,39 @@ export class QuickNotesComponent implements OnInit {
   }
 
   getPlanBuckets(planId){
-    this.subsGetPlanBuckets = this.plannerService.getPlanBuckets(planId).subscribe(plan => {
-      this.zone.run(() => {
-        this.buckets = plan;
+    this.subsGetPlanBuckets = this.plannerService.getPlanBuckets(planId).subscribe(bucket => {
+      this.zone.runOutsideAngular(() => {
+        this.buckets = bucket;
+        this.getTasksCondition(this.buckets)
+        
       })
     })
   }
 
-  getBucketList(id){
-    this.subsGetBucketList = this.plannerBucketService.GetListBucket(id).subscribe(plan => {
+  getTasksCondition(buckets){
+    this.zone.run(() => {
+      buckets.value.filter((elm) => {
+        console.table(elm)
+        if(elm.name === this.pickedBucket) {
+          this.getBucketTasks(elm.id);
+          console.log('bucket picked')
+        } else {
+          console.log('please pick a bucket')
+        }
+  
+      })
+    })
+    
+    
+  }
+
+  getBucketTasks(bucketID){
+    this.subsGetBucketTasks = this.plannerTaskService.getAllPlannerTasksForBucket(bucketID).subscribe(tasks => {
       this.zone.run(() => {
-        this.planBucket = plan;
+        console.table(tasks)
+        console.log(bucketID)
+        this.tasks = tasks;
+        this.loaded = true;
       })
     })
   }

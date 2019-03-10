@@ -8,6 +8,10 @@ import { Navigation, SubNavigation } from './nav-icon-list';
 import { ClientService } from '../../Services/client/client.service';
 import { LogoutService } from '../../Services/Auth/logout.service';
 
+declare var jquery:any;
+declare var $ :any;
+
+
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -42,14 +46,16 @@ export class NavigationComponent implements OnInit {
   subNavList = SubNavigation;
 
   //__(2) Navigation Toggled?
-  navClick = false;
+  navClick = true;
 
   //__(2) Navigation Toggler function
   navOnClick(){
     if (this.navClick == false){
       this.navClick = true;
+      $('.column-navigation').css('width', '225px');
     } else {
       this.navClick = false;
+      $('.column-navigation').css('width', '50px');
     }
   };
 
