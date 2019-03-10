@@ -5,8 +5,8 @@
     </div>
   </div>
   <ul >
-    <li *ngFor="let nav of navList transition-nav" class="__li-expanded">
-      <div class="icon btn contain transition-nav" [ngStyle]="{'background-image': 'url('+nav.imageUrl+')'}" title="{{nav.name}}" [routerLink]="nav.url">
+    <li *ngFor="let nav of navList transition-nav" class="__li-expanded" routerLinkActive="active" [routerLink]="nav.url">
+      <div class="icon btn contain transition-nav" [ngStyle]="{'background-image': 'url('+nav.imageUrl+')'}" title="{{nav.name}}">
         <div class="__expand transition-nav">{{nav.name}}</div>
       </div>
     </li>

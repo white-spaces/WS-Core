@@ -35,7 +35,7 @@ const routes: Routes = [
           data: {title: 'Dashboard'}
         },
         {
-          path: 'edit',
+          path: 'editor',
           component: EditorComponent,
           data: {title: 'Editor'}
         },

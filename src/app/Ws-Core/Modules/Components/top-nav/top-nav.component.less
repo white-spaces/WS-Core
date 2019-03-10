@@ -6,10 +6,22 @@
     z-index: 20;
     left: 0;
     #current_user_profile_image {
-        width: 48px;
-        bottom: 48px;
+        width: 50px;
         float: right;
-        margin-right: 15px;
+        padding-top: 2px;
+        padding-left: 2px;
+        max-height: 50px;
+        position: relative;
+        box-sizing: border-box;
+        cursor: pointer;
+        background-color: #678faa;
+        -webkit-transition: background-color 150ms;
+        -moz-transition: background-color 150ms;
+        -o-transition: background-color 150ms;
+        transition: background-color 150ms;
+        &:hover {
+            background-color: #39627b;
+        }
         cursor: pointer;
         .__container {
             padding: 5px;

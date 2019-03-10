@@ -17,19 +17,15 @@ nav {
                 position: inherit;
                 height: 18px;
                 width: 18px;
-                left: 20px;
+                left: 15px;
                 top: 16px;
-                opacity: 0.8;
                 color: #f4f4f4;
-            
-                &:hover {
-                    opacity: 1;
-                }
                 .__expand{
                     visibility: hidden;
                     position: relative;
                     height: 20px;
                     left: 35px;
+                    top: 1px;
                     opacity: 0;
                     border-radius: 1px;
                     text-transform: capitalize;
@@ -46,10 +42,6 @@ nav {
             height: 200px!important;
             .sub-ul {
                 .__sub {
-                    opacity: 0.8!important;
-                    &:hover {
-                        opacity: 1!important;
-                    }
                     .__expand {
                         visibility: visible!important;
                         opacity: 1!important;
@@ -71,10 +63,7 @@ nav {
                 height: 350px;
                 top: -50px;
                 .__sub {
-                    opacity: 0.8!important;
-                    &:hover {
-                        opacity: 1!important;
-                    }
+                    opacity: 1!important;
                     .__expand {
                         visibility: visible!important;
                         opacity: 1!important;
@@ -130,13 +119,11 @@ nav {
             margin-top: 0px!important;
             top: 18px;
             background-image: url('../../../../assets/feather/menu.svg');
-            opacity: 0.8;
             &:hover {
                 -webkit-transform: scale(1.05, 1.05);
                 -moz-transform: scale(1.05, 1.05);
                 -o-transform: scale(1.05, 1.05);
                 transform: scale(1.05, 1.05);
-                opacity: 1;
             }
         }
     }  
@@ -146,7 +133,6 @@ nav {
 .nav_expanded {
     position: absolute;
     width: 225px;
-    box-shadow: 0px 0px 9px 1px rgba(0,0,0,.3);
     -webkit-transition: all 150ms;
     -moz-transition: all 150ms;
     -o-transition: all 150ms;
@@ -166,11 +152,18 @@ nav {
         &:hover {
             background-color: #4f595f;
         }
+        &:focus{
+            outline: none;
+        }
         .__expand{
             opacity: 1;
             visibility: visible;
         }
     }
     
+}
+
+.active {
+    background-color: #4f595f;
 }
 
